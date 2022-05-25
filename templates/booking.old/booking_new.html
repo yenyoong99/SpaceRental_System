@@ -1,0 +1,48 @@
+{% include 'booking/booking_tmp/booking_head.html' %}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-1">租用空间APP - 预定空间</h3>
+</div>
+<div class="container-fluid"><br>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 font-weight-bold">预定空间</p>
+        </div>
+        <div class="card-body">
+            <form method="post" class="">
+                {% csrf_token %}
+                <div class="form-group">
+                    租用空间：
+                    <select name="spaces_id" class="form-control select2-dropdown">
+                        {% for space in spaces %}
+                            {% if space.status != 0 %}
+                            <option value="{{ space.id }}">{{ space.spaces_name }} （费用：RM{{ space.fee }}）</option>
+{#                            spaces_fee = space.fee#}
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    开始租用日期与时间：
+                    <input class="form-control form-control-user" type="datetime-local" id="start_datetime" placeholder="租用日期"
+                           name="start_datetime">
+                </div>
+                <div class="form-group">
+                    结束租用日期与时间：
+                    <input class="form-control form-control-user" type="datetime-local" id="end_datetime" placeholder="租用日期"
+                           name="end_datetime">
+                </div>
+                <button class="btn btn-primary btn-block text-white btn-user" type="submit">预定</button>
+                <hr>
+                <div class="text-danger">
+                {% if forms_errors %}
+                    {% for key,error in forms_errors.items %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+                {{ booking_error_message }}
+                </div>
+            </form>
+        </div>
+    </div>
+{% include 'booking/booking_tmp/booking_footer.html' %}

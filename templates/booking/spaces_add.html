@@ -1,0 +1,89 @@
+{% include 'templates/booking/booking_tmp/booking_head.html' %}
+{% include 'templates/booking/booking_tmp/booking_navbar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>新增空间</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">首页</a></li>
+                        <li class="breadcrumb-item active">新增空间</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    {% if forms_errors %}
+            <div class="card-body">
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> 空间增加失败！</h5>
+                    {% for key,error in forms_errors.items %}
+                    {{ error }}
+                    {% endfor %}
+                {{ booking_error_message }}
+                </div>
+            </div>
+    {% endif %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">新增空间</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" action="" role="form">
+                         {% csrf_token %}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">空间名称</label>
+                                    <input class="form-control" type="text" id="name" placeholder="空间名称"
+                           name="spaces_name">
+                                </div>
+                                <label for="exampleInputPassword1">租用费用</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="fee" placeholder="租用费用" name="fee">
+                                </div>
+
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">增加</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="col-md-6">
+
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'templates/booking/booking_tmp/booking_footer.html' %}
+
+
+</body>
+</html>

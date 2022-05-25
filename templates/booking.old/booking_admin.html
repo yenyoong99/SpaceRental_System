@@ -1,0 +1,104 @@
+{% include 'booking/booking_tmp/booking_head.html' %}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-4">租用空间APP - 用户空间管理</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 font-weight-bold">用户空间管理</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 text-nowrap">
+{#                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">#}
+{#                        <label>Show&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm">#}
+{#                            <option value="10" selected="">10</option>#}
+{#                            <option value="25">25</option>#}
+{#                            <option value="50">50</option>#}
+{#                            <option value="100">100</option>#}
+{#                        </select>&nbsp;</label></div>#}
+                </div>
+                <div class="col-md-6">
+                    <form method="get" action="/booking/admin/search">
+                        {% csrf_token %}
+                        <div class="text-md-right dataTables_filter" id="dataTable_filter"><label>
+                            <input type="search" name="q" class="form-control form-control-sm" aria-controls="dataTable"
+                                   placeholder="用户搜索"></label>
+                            <input type="submit" value="搜索">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table dataTable my-0" id="dataTable">
+                    <thead>
+                    <tr>
+                        <th>预定用户</th>
+                        <th>租用空间</th>
+                        <th>开始租用日期 / 时间</th>
+                        <th>结束租用日期 / 时间</th>
+                        <th>费用</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for bookings in booking %}
+                        <tr>
+                            <td>{{ bookings.username }}</td>
+                            <td>{{ bookings.spaces_name }}</td>
+                            <td>{{ bookings.start_datetime }}</td>
+                            <td>{{ bookings.end_datetime }}</td>
+                            <td>RM {{ bookings.fee }}</td>
+                            <td>
+                                {% if bookings.status == 0 %}
+                                    <a>待处理</a>
+                                {% endif %}
+                                {% if bookings.status == 1 %}
+                                    <a>已办理</a>
+                                {% endif %}
+                                {% if bookings.status == 2 %}
+                                    <a>已取消</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if bookings.status == 0 %}
+                                    <button class="btn btn-danger" type="button" onclick="window.location.href='/booking/admin/cancel/?id={{ bookings.id }}'">取消</button>
+                                    <button class="btn btn-success" type="button" onclick="window.location.href='/booking/admin/success/?id={{ bookings.id }}'">成功</button>
+                                {% endif %}
+                                {% if bookings.status == 1 or bookings.status == 2%}
+                                    <button class="btn btn-dark" type="button" onclick="window.location.href='/booking/admin/del/?id={{ bookings.id }}'">删除</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                    <tr></tr>
+                    </tfoot>
+                </table>
+            </div>
+{#            <div class="row">#}
+{#                <div class="col-md-6 align-self-center">#}
+{#                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of#}
+{#                        27</p>#}
+{#                </div>#}
+{#                <div class="col-md-6">#}
+{#                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">#}
+{#                        <ul class="pagination">#}
+{#                            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span#}
+{#                                    aria-hidden="true">«</span></a></li>#}
+{#                            <li class="page-item active"><a class="page-link" href="#">1</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span#}
+{#                                    aria-hidden="true">»</span></a></li>#}
+{#                        </ul>#}
+{#                    </nav>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </div>
+</div>
+</div>
+
+{% include 'booking/booking_tmp/booking_footer.html' %}

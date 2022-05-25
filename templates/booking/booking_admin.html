@@ -1,0 +1,134 @@
+{% include 'templates/booking/booking_tmp/booking_head.html' %}
+{% include 'templates/booking/booking_tmp/booking_navbar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>用户空间预定管理</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">首页</a></li>
+                        <li class="breadcrumb-item active">用户空间预定管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    {% if forms_errors %}
+        <div class="card-body">
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> 空间增加失败！</h5>
+                {% for key,error in forms_errors.items %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">用户空间预定管理</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" action="" role="form">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>预定用户</th>
+                                        <th>租用空间</th>
+                                        <th>租用日期 / 时间</th>
+                                        <th>费用</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for bookings in booking %}
+                        <tr>
+                            <td><a href="/users/view/?id={{ bookings.username_id }}">{{ bookings.username }}</a></td>
+                            <td>{{ bookings.spaces_name }}</td>
+                            <td>{{ bookings.start_datetime }} - {{ bookings.end_datetime }}</td>
+                            <td>RM {{ bookings.fee }}</td>
+                            <td>
+                                {% if bookings.status == 0 %}
+                                    <a>待处理</a>
+                                {% endif %}
+                                {% if bookings.status == 1 %}
+                                    <a>已办理</a>
+                                {% endif %}
+                                {% if bookings.status == 2 %}
+                                    <a>已取消</a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if bookings.status == 0 %}
+                                    <button class="btn btn-danger" type="button" onclick="window.location.href='/booking/admin/cancel/?id={{ bookings.id }}'">取消</button>
+                                    <button class="btn btn-success" type="button" onclick="window.location.href='/booking/admin/success/?id={{ bookings.id }}'">成功</button>
+                                {% endif %}
+                                {% if bookings.status == 1 or bookings.status == 2%}
+                                    <button class="btn btn-dark" type="button" onclick="window.location.href='/booking/admin/del/?id={{ bookings.id }}'">删除</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </form>
+                    </div>
+
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="col-md-6">
+
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'templates/booking/booking_tmp/booking_footer.html' %}
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+
+</body>
+</html>

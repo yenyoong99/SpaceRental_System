@@ -1,0 +1,35 @@
+{% include 'booking/booking_tmp/booking_head.html' %}
+
+<div class="container-fluid">
+    <h3 class="text-dark mb-1">租用空间APP - 新增空间</h3>
+</div>
+<div class="container-fluid"><br>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 font-weight-bold">新增空间</p>
+        </div>
+        <div class="card-body">
+            <form method="post" class="">
+                {% csrf_token %}
+                <div class="form-group">
+                    空间名称：
+                    <input class="form-control form-control-user" type="text" id="name" placeholder="空间名称"
+                           name="spaces_name">
+                </div>
+                <div class="form-group">
+                    租用费用：
+                    <input class="form-control form-control-user" type="text" id="fee" placeholder="租用费用" name="fee">
+                </div>
+                <button class="btn btn-primary btn-block text-white btn-user" type="submit">增加</button>
+                <hr>
+            </form>
+            <div class="text-danger">
+                {% if forms_errors %}
+                    {% for key,error in forms_errors.items %}
+                        {{ error }}
+                    {% endfor %}
+                {% endif %}
+                {{ booking_error_message }}
+            </div>
+        </div>
+{% include 'booking/booking_tmp/booking_footer.html' %}

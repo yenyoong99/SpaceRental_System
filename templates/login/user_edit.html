@@ -1,0 +1,228 @@
+{% include 'templates/booking/booking_tmp/booking_head.html' %}
+{% include 'templates/booking/booking_tmp/booking_navbar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>用户资料修改</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">首页</a></li>
+                        <li class="breadcrumb-item active">用户资料修改</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">用户资料修改</h3>
+                        </div>
+                        <form method="post" action="" role="form">
+                            {% csrf_token %}
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">用户名</label>
+                                            <input hidden="hidden" type="text" name="username" value="{{ user_view.username }}">
+                                            <input class="form-control" type="text" id="name" value="{{ user_view.username }}" disabled="disabled">
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label for="exampleInput">姓氏</label>
+                                            <input class="form-control" type="text" id="name" name="first_name"
+                                                   value="{{ user_view.first_name }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">密码</label>
+                                            <input class="form-control" type="password" id="name" name="password" placeholder="密码不修改可放空">
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label for="exampleInput">名字</label>
+                                            <input class="form-control" type="text" id="name" name="last_name"
+                                                   value="{{ user_view.last_name }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">身份证</label>
+                                            <input class="form-control" type="text" id="name" name="ic"
+                                                   value="{{ user_view.ic }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">公司名</label>
+                                            <input class="form-control" type="text" id="name" name="company"
+                                                   value="{{ user_view.company }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">电子邮件</label>
+                                            <input class="form-control" type="text" id="name" name="email"
+                                                   value="{{ user_view.email }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">手机号码</label>
+                                            <input class="form-control" type="text" id="name" name="tel"
+                                                   value="{{ user_view.tel }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">银行</label>
+                                            <input class="form-control" type="text" id="name" name="bank_name"
+                                                   value="{{ user_view.bank_name }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">银行户口</label>
+                                            <input class="form-control" type="text" id="name" name="bank_acc"
+                                                   value="{{ user_view.bank_acc }}">
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">权限</label>
+                                            <select name="is_superuser" class="custom-select">
+                                                {% if user_view.is_superuser == 1 and user_view.pk != 1%}
+                                                <option value="1">Administrator</option>
+                                                    <option value="0">Standard</option>
+                                                {% endif %}
+                                              {% if user_view.is_superuser == 0  and user_view.pk != 1%}
+                                              <option value="0">Standard</option>
+                                                  <option value="1">Administrator</option>
+                                                {% endif %}
+                                              {% if user_view.pk == 1%}
+                                                  <option value="1">Administrator</option>
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">状态</label>
+                                            <select name="is_active" class="custom-select">
+                                                {% if user_view.is_active == 1 and user_view.pk != 1%}
+                                                <option value="1">活跃</option>
+                                                    <option value="0">不活跃</option>
+                                                {% endif %}
+                                              {% if user_view.is_active == 0  and user_view.pk != 1%}
+                                              <option value="0">不活跃</option>
+                                                  <option value="1">活跃</option>
+                                                {% endif %}
+                                              {% if user_view.pk == 1%}
+                                                  <option value="1">活跃</option>
+                                                {% endif %}
+                                            </select>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                                <div class="row">
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">注册日期：</label>
+                                            {{ user_view.date_joined }}
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                            <label for="exampleInput">最后登入：</label>
+                                            {{ user_view.last_login }}
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">修改</button>
+                                {% if  user_view.pk != 1%}
+                                <button type="button" class="btn btn-danger" onclick="window.location.href='/users/del/?id={{ user_view.pk }}'">永久删除用户</button>
+                                {% endif %}
+                            </div>
+                            <!-- /.card -->
+
+                        </form>
+                    </div>
+
+
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="col-md-6">
+
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'templates/booking/booking_tmp/booking_footer.html' %}
+
+</body>
+</html>

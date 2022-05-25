@@ -1,0 +1,79 @@
+{% include 'booking/booking_tmp/booking_head.html' %}
+
+<div class="container-fluid">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <h3 class="text-dark mb-0">APPS主页</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span
+                                    style="font-size: 20px;"><a href="new">预定空间</a></span></div>
+                        </div>
+                        <div class="col-auto"><i class="fab fa-squarespace fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span
+                                    style="font-size: 20px;"><a href="manage">预定记录</a></span></div>
+                        </div>
+                        <div class="col-auto"><i class="fab fa-squarespace fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if request.user.is_superuser == 1 %}
+                <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span
+                                    style="font-size: 20px;"><a href="spaces_add">新增空间</a></span></div>
+                        </div>
+                        <div class="col-auto"><i class="fab fa-squarespace fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span
+                                    style="font-size: 20px;"><a href="spaces_manage">空间管理</a></span></div>
+                        </div>
+                        <div class="col-auto"><i class="fab fa-squarespace fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-3 mb-4">
+            <div class="card shadow border-left-primary py-2">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span
+                                    style="font-size: 20px;"><a href="admin">用户空间管理</a></span></div>
+                        </div>
+                        <div class="col-auto"><i class="fab fa-squarespace fa-2x text-gray-300"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+</div>
+
+{% include 'booking/booking_tmp/booking_footer.html' %}

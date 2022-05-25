@@ -1,0 +1,139 @@
+{% include 'templates/booking/booking_tmp/booking_head.html' %}
+{% include 'templates/booking/booking_tmp/booking_navbar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>活动管理</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">首页</a></li>
+                        <li class="breadcrumb-item active">活动管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    {% if forms_errors %}
+        <div class="card-body">
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> 活动管理失败！</h5>
+                {% for key,error in forms_errors.items %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">活动记录</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form method="post" action="" role="form">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>活动名称</th>
+                                        <th>活动日期 / 时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for activity in all_activity %}
+                                        <tr>
+                                            <td>{{ activity.activity_name }}</td>
+                                            <td>{{ activity.start_datetime }} - {{ activity.end_datetime }}</td>
+                                            <td>
+                                                {% if activity.status == 1 %}
+                                                    <a>显示</a>
+                                                {% endif %}
+                                                {% if activity.status == 0 %}
+                                                    <a>不显示</a>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-dark" type="button" onclick="window.location.href='/booking/activity/edit/?id={{ activity.id }}'">
+                                                        编辑
+                                                    </button>
+                                                {% if activity.status == 0 %}
+                                                    <button class="btn btn-success" type="button"
+                                                            onclick="window.location.href='/booking/activity/see/?id={{ activity.id }}'">
+                                                        显示
+                                                    </button>
+                                                {% endif %}
+                                                {% if activity.status == 1 %}
+                                                    <button class="btn btn-primary" type="button"
+                                                            onclick="window.location.href='/booking/activity/no_see/?id={{ activity.id }}'">
+                                                        不显示
+                                                    </button>
+                                                {% endif %}
+                                                <button class="btn btn-danger" type="button"
+                                                            onclick="window.location.href='/booking/activity/del/?id={{ activity.id }}'">
+                                                        删除
+                                                    </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </form>
+                    </div>
+
+                </div>
+                <!--/.col (left) -->
+                <!-- right column -->
+                <div class="col-md-6">
+
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+{% include 'templates/booking/booking_tmp/booking_footer.html' %}
+
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
+</script>
+
+</body>
+</html>
