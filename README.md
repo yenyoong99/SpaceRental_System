@@ -1,6 +1,6 @@
 # 空间租用系统 (Space Rental System)
 
-[![License](https://img.shields.io/github/license/your-username/space_rent)](LICENSE)
+[![License](https://img.shields.io/github/license/yenyoong99/SpaceRental_System)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org)
 [![Django](https://img.shields.io/badge/django-3.2+-green.svg)](https://www.djangoproject.com)
 
