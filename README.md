@@ -90,19 +90,6 @@ python manage.py runserver
 
 ![alt text](docs/image.png)
 
-- 系统包含测试数据
-- 本地地址： [http://127.0.0.1](http://127.0.0.1/)
-- 初始管理员登入账号
-  - 原始账号：admin
-  - 原始密码：admin123
-- 初始用户登入账号
-  - 原始账号：lyy123
-  - 原始密码：lyy123456
-- 数据库
-  - HOST：127.0.0.1:3306
-  - User: root
-  - Password: root
-
 ## APP首页，空间预定预览表
 
 ![alt text](docs/image-1.png)
